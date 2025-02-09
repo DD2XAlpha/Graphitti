@@ -29,7 +29,7 @@ This project uses the next libraries:
 - **License**: [MIT](https://github.com/jquery/jquery?tab=MIT-1-ov-file)
 
 
-### Full list of Python libraries and software used (cooming bundled with the ones above)
+### Full list of Python libraries and software used (bundled with the ones above)
 
 | Name                         | Version   | License                                                                        |
 |------------------------------|-----------|--------------------------------------------------------------------------------|
