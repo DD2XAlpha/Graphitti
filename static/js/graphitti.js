@@ -1,0 +1,147 @@
+class Graphitti {
+
+    open_file(callback) {
+        $.ajax({
+            url: `/open-file`,
+            type: 'GET',
+            success: (data) => {
+                console.log(data);
+                this.get_graph(data);
+                callback(data);
+            },
+            error: (jqXHR, textStatus, errorThrown) => {
+                console.error('Error fetching graph:', textStatus, errorThrown);
+            }
+        });
+    }
+
+    get_graph(path) {
+        $.ajax({
+            url: `/mermaid`,
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ path: path }),
+            success: (data) => {
+                this.draw_graph('graphContainer', data);
+                //this.invoke_graph(path); //remove
+            },
+            error: (jqXHR, textStatus, errorThrown) => {
+                console.error('Error fetching graph:', textStatus, errorThrown);
+            }
+        });
+    }
+
+    draw_graph(element_id, data) {
+        $("#graph-viewer").append('<div id="graph_pre"></div>')
+        mermaid.render('graph_pre', data).then(({ svg, bindFunctions }) => {
+            $(`#${element_id}`).html(svg);
+            let current_graph_viewer_height = $('#graph-viewer').height();
+            $(`#${element_id} svg`).css('max-width', 'none').css('max-height', `${current_graph_viewer_height - 200}px`);
+        });
+    }
+
+    invoke_graph(path, prompt) {
+        $.ajax({
+            url: '/invoke',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ message: prompt, path: path }),
+            success: (response) => {
+                let data = JSON.parse(response);
+                console.log(data); ``
+
+                for (var i = 0; i < data.length; i++) {
+                    $("#graph-execution").append(new GraphittiComponent().render_interaction(data[i]));
+                }
+            },
+            error: (jqXHR, textStatus, errorThrown) => {
+                console.error('Error invoking graph:', textStatus, errorThrown);
+            }
+        });
+    }
+}
+
+class GraphittiComponent {
+
+    render_interaction(interaction) {
+        if (interaction.type == 'human') {
+            return this.human_card(interaction);
+        }
+        else if (interaction.type == 'tool') {
+            return this.tool_card(interaction);
+        }
+        else if (interaction.type == 'ai') {
+            return this.ai_card(interaction);
+        }
+    }
+
+    human_card(interaction) {
+        let card = `<div class="card border-primary m-3">
+                        <div class="card-header">${interaction.type}</div>
+                        <div class="card-body text-primary">
+                            <p class="card-text">${interaction.content}</p>
+                        </div>
+                    </div>`
+        return card;
+    }
+
+    tool_card(interaction) {
+        let card = `<div class="card border-info m-3">
+                        <div class="card-header">${interaction.type}</div>
+                        <div class="card-body">
+                            <p class="card-text">${interaction.content}</p>
+                        </div>
+                    </div>`
+        return card;
+    }
+
+    ai_card(interaction) {
+
+        let table = this.generateTable(interaction);
+
+        let card = `<div class="card border-success m-3">
+                        <div class="card-header">${interaction.type}</div>
+                        <div class="card-body">
+                            ${table}
+                            <p class="card-text">${interaction.content}</p>
+                        </div>
+                    </div>`
+        return card;
+    }
+
+    generateTable(data) {
+        let tool_call_list = ''
+
+        data.tool_calls.forEach(tool => {
+            const row = document.createElement("tr");
+
+            // Name column
+            const nameCell = document.createElement("td");
+            nameCell.textContent = tool.name;
+            row.appendChild(nameCell);
+
+            // Args column
+            const argsCell = document.createElement("td");
+            const argsArray = Object.entries(tool.args).map(([key, value]) => `${key}: ${value}`);
+            argsCell.textContent = argsArray.join(", ");
+            row.appendChild(argsCell);
+
+            tool_call_list += row.innerHTML;
+        });
+
+        if(tool_call_list == '') {
+           return '';
+        }
+
+        let table = `<table class="table">
+                        <thead>
+                            <tr>
+                                <th>Tool</th>
+                                <th>Arguments</th>
+                            </tr>
+                        </thead>
+                        <tbody>${tool_call_list}</tbody>
+                    </table>`
+        return table;
+    }
+}
