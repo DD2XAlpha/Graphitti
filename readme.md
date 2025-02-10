@@ -25,4 +25,4 @@ This application aims to run all locally and be able to see all the interactions
 
 ##### Feb 9th, 2025
 ---
-I know this app doesn't look as good as what Langgraph Studio does. But plewase wait patiently, I am more focused on adding featurea that the looks at this moment
+I know this app doesn't look as good as Langgraph Studio. But please wait patiently, I am more focused on adding features than the looks at this moment
