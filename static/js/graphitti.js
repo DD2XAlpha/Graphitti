@@ -37,6 +37,7 @@ class Graphitti {
             $(`#${element_id}`).html(svg);
             let current_graph_viewer_height = $('#graph-viewer').height();
             $(`#${element_id} svg`).css('max-width', 'none').css('max-height', `${current_graph_viewer_height - 200}px`);
+            $('#graph-drop').removeClass('disabled');
         });
     }
 
