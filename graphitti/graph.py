@@ -6,6 +6,10 @@ def get_mermaid_graph(script_path: str) -> str:
     state_graph  = lookup_for_state_graph(script_path)
     return state_graph.get_graph().draw_mermaid()
 
+def get_mermaid_graph_image(script_path: str) -> str:
+    state_graph  = lookup_for_state_graph(script_path)
+    return state_graph.get_graph().draw_mermaid_png()
+
 def invoke_state_graph(script_path: str, prompt: str) -> None:
     state_graph = lookup_for_state_graph(script_path)
     return state_graph.invoke({"messages" :  [HumanMessage(content=prompt)]})
