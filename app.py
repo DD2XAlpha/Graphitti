@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, jsonify
-from graphitti.graph import get_mermaid_graph, async_invoke_state_graph, invoke_state_graph
+from flask import Flask, render_template, request, jsonify,send_file
+from graphitti.graph import get_mermaid_graph, get_mermaid_graph_image, async_invoke_state_graph, invoke_state_graph
 from graphitti.json_parser import parse_message
 from graphitti.filedialog import open_file, open_folder
 from dotenv import load_dotenv
+from io import BytesIO
 
 app = Flask(__name__)
 
@@ -47,6 +48,14 @@ def async_invoke():
             yield output
 
     return app.response_class(generate(), mimetype='text/plain')
+
+@app.route('/image-download', methods=['POST'])
+def image_download():
+    data = request.get_json()
+    path = data.get('path')
+    img = get_mermaid_graph_image(path)
+    return send_file(BytesIO(img), mimetype='image/png', as_attachment=True, download_name='graph.png')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

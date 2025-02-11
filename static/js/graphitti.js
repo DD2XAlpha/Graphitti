@@ -59,6 +59,39 @@ class Graphitti {
             }
         });
     }
+
+    download_graph_as_png(path) {
+        $.ajax({
+            url: `image-download`,
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ path: path }),
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function(response) {
+                // Create a blob URL from the response
+                const blob = new Blob([response], { type: 'image/jpeg' });
+                const url = window.URL.createObjectURL(blob);
+                
+                // Create a temporary link and trigger download
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = "graph.png";
+                document.body.appendChild(link);
+                link.click();
+                
+                // Clean up
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(url);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error downloading image:', error);
+                alert('Failed to download image');
+            }
+        });
+    }
+
 }
 
 class GraphittiComponent {
