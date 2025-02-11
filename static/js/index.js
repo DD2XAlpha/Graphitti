@@ -22,4 +22,9 @@ $('#btn-invoke').on('click', () => {
 $("#download-graph-png").on('click', () => {
     var graphitti = new Graphitti();
     graphitti.download_graph_as_png(file_path);
-})
+});
+
+$("#download-graph-svg").on('click', () => {
+    var graphitti = new Graphitti();
+    graphitti.download_graph_as_svg();
+});

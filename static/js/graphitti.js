@@ -69,27 +69,50 @@ class Graphitti {
             xhrFields: {
                 responseType: 'blob'
             },
-            success: function(response) {
+            success: function (response) {
                 // Create a blob URL from the response
                 const blob = new Blob([response], { type: 'image/jpeg' });
                 const url = window.URL.createObjectURL(blob);
-                
+
                 // Create a temporary link and trigger download
                 const link = document.createElement('a');
                 link.href = url;
                 link.download = "graph.png";
                 document.body.appendChild(link);
                 link.click();
-                
+
                 // Clean up
                 document.body.removeChild(link);
                 window.URL.revokeObjectURL(url);
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error('Error downloading image:', error);
                 alert('Failed to download image');
             }
         });
+    }
+
+    download_graph_as_svg() {
+        const svgElement = document.querySelector('svg');
+
+        // Get the SVG content as a string
+        const serializer = new XMLSerializer();
+        const svgString = serializer.serializeToString(svgElement);
+
+        // Create a blob with the SVG data
+        const blob = new Blob([svgString], { type: 'image/svg+xml' });
+        const url = window.URL.createObjectURL(blob);
+
+        // Create temporary link and trigger download
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'graph.svg';
+        document.body.appendChild(link);
+        link.click();
+
+        // Clean up
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
     }
 
 }
@@ -162,8 +185,8 @@ class GraphittiComponent {
             tool_call_list += row.innerHTML;
         });
 
-        if(tool_call_list == '') {
-           return '';
+        if (tool_call_list == '') {
+            return '';
         }
 
         let table = `<table class="table">
