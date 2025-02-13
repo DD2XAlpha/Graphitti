@@ -1,0 +1,84 @@
+/* Custom Bootstrap 5 Purple Theme */
+:root {
+    /* Main purple color and its variations */
+    --bs-purple-100: #f3e8ff;
+    --bs-purple-200: #e4ccff;
+    --bs-purple-300: #d1a9ff;
+    --bs-purple-400: #b77fff;
+    --bs-purple-500: #9d55ff;    /* Base purple color */
+    --bs-purple-600: #8440e3;
+    --bs-purple-700: #6b2ec9;
+    --bs-purple-800: #521fa3;
+    --bs-purple-900: #3a1577;
+
+    /* Custom purple as a theme color */
+    --bs-custom-purple: var(--bs-purple-500);
+    
+    /* RGB values for opacity utilities */
+    --bs-custom-purple-rgb: 157, 85, 255;
+}
+
+/* Button variants */
+.btn-custom-purple {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--bs-custom-purple);
+    --bs-btn-border-color: var(--bs-custom-purple);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--bs-purple-600);
+    --bs-btn-hover-border-color: var(--bs-purple-700);
+    --bs-btn-focus-shadow-rgb: var(--bs-custom-purple-rgb);
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--bs-purple-700);
+    --bs-btn-active-border-color: var(--bs-purple-800);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: var(--bs-custom-purple);
+    --bs-btn-disabled-border-color: var(--bs-custom-purple);
+}
+
+.btn-outline-custom-purple {
+    --bs-btn-color: var(--bs-custom-purple);
+    --bs-btn-border-color: var(--bs-custom-purple);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--bs-custom-purple);
+    --bs-btn-hover-border-color: var(--bs-custom-purple);
+    --bs-btn-focus-shadow-rgb: var(--bs-custom-purple-rgb);
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--bs-custom-purple);
+    --bs-btn-active-border-color: var(--bs-custom-purple);
+    --bs-btn-disabled-color: var(--bs-custom-purple);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: var(--bs-custom-purple);
+}
+
+/* Background utilities */
+.bg-custom-purple {
+    background-color: var(--bs-custom-purple) !important;
+}
+
+/* Text utilities */
+.text-custom-purple {
+    color: var(--bs-custom-purple) !important;
+}
+
+/* Border utilities */
+.border-custom-purple {
+    border-color: var(--bs-custom-purple) !important;
+}
+
+/* Alert variant */
+.alert-custom-purple {
+    --bs-alert-color: var(--bs-purple-900);
+    --bs-alert-bg: var(--bs-purple-100);
+    --bs-alert-border-color: var(--bs-purple-200);
+}
+
+/* Badge variant */
+.badge.bg-custom-purple {
+    color: white;
+}
+
+.frosted{
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
