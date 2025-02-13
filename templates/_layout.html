@@ -7,9 +7,13 @@
     <title>{% block title %}My Site{% endblock %}</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="{{ url_for('static', filename='css/custom-boot.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/font.css') }}" rel="stylesheet">
     <style>
         body {
-            overflow-x: hidden; /* Hide horizontal scrollbar */
+            overflow-x: hidden;
+            /* Hide horizontal scrollbar */
         }
     </style>
 </head>
@@ -17,9 +21,10 @@
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary-subtle">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Graphitti</a>
+            <a class="navbar-brand" href="#"><img src="{{ url_for('static', filename='img/icon_2.svg') }}"
+                    alt="Graphitti Logo" style="width: 20px;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -32,12 +37,7 @@
                             File
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="file-drop">
-                            <li><span class="dropdown-item" id="open-file">Open File</span></li>
-                            <!-- <li><span class="dropdown-item" id="open-folder">Open Folder</span></li> -->
-                            <!-- <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="/">Something else here</a></li> -->
+                            <li><a class="dropdown-item" id="open-file" role="button"><i class="fa-solid fa-folder-open"></i> Open File</span></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -46,14 +46,26 @@
                             Graph
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="graph-drop">
-                            <li><span class="dropdown-item" id="download-graph-svg">Download Graph as SVG</span></li>
-                            <li><span class="dropdown-item" id="download-graph-png">Download Graph as PNG</span></li>
+                            <li><a class="dropdown-item" id="download-graph-svg" role="button"><i class="fa-solid fa-download"></i> Download Graph as SVG</a>
+                            </li>
+                            <li><a class="dropdown-item" id="download-graph-png" role="button"><i class="fa-solid fa-download"></i> Download Graph as PNG</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle disabled" href="#" id="thread-drop" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Thread
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="graph-drop">
+                            <li><a class="dropdown-item" id="download-thread" role="button"><i class="fa-solid fa-download"></i> Download Thread as JSON</a>
+                            </li>
+                            <li><a class="dropdown-item" id="new-thread" role="button"><i class="fa-solid fa-plus"></i> New Thread</a></li>
+                            <li><a class="dropdown-item" id="open-thread" role="button"><i class="fa-solid fa-folder-open"></i> Open Recent Thread</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><span class="dropdown-item" id="download-thread">Download Thread as JSON</span></li>
-                            <li><span class="dropdown-item" id="download-thread">Download Thread as PDF</span></li>
-                            <li><span class="dropdown-item" id="restart-thread">Restart Thread</span></li>
+                            <li><a class="dropdown-item text-danger" id="restart-thread" role="button"><i class="fa-solid fa-trash-can"></i> Restart Thread</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -65,11 +77,13 @@
                             Help
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="help-drop">
-                            <li><a class="dropdown-item" target="_blank" href="https://github.com/DD2XAlpha/Graphitti/wiki">Documentation</a></li>
-                            <li><a class="dropdown-item" target="_blank" href="https://github.com/DD2XAlpha/Graphitti/issues">Report an issue</a></li>
+                            <li><a class="dropdown-item" target="_blank"
+                                    href="https://github.com/DD2XAlpha/Graphitti/wiki">Documentation</a></li>
+                            <li><a class="dropdown-item" target="_blank"
+                                    href="https://github.com/DD2XAlpha/Graphitti/issues">Report an issue</a></li>
                         </ul>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a class="nav-link" href="/about">About</a>
                     </li>

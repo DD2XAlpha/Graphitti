@@ -38,6 +38,7 @@ class Graphitti {
             let current_graph_viewer_height = $('#graph-viewer').height();
             $(`#${element_id} svg`).css('max-width', 'none').css('max-height', `${current_graph_viewer_height - 200}px`);
             $('#graph-drop').removeClass('disabled');
+            $('#thread-drop').removeClass('disabled');
         });
     }
 
@@ -134,7 +135,7 @@ class GraphittiComponent {
 
     human_card(interaction) {
         let card = `<div class="card border-primary m-3">
-                        <div class="card-header">${interaction.type}</div>
+                        <div class="card-header bg-primary text-white"><i class="fa-solid fa-user"></i><b> ${interaction.type}</b></div>
                         <div class="card-body text-primary">
                             <p class="card-text">${interaction.content}</p>
                         </div>
@@ -144,7 +145,7 @@ class GraphittiComponent {
 
     tool_card(interaction) {
         let card = `<div class="card border-info m-3">
-                        <div class="card-header">${interaction.type}</div>
+                        <div class="card-header bg-info"><i class="fa-solid fa-screwdriver-wrench"></i><b> ${interaction.type}</b></div>
                         <div class="card-body">
                             <p class="card-text">${interaction.content}</p>
                         </div>
@@ -156,11 +157,11 @@ class GraphittiComponent {
 
         let table = this.generateTable(interaction);
 
-        let card = `<div class="card border-success m-3">
-                        <div class="card-header">${interaction.type}</div>
+        let card = `<div class="card border-custom-purple m-3">
+                        <div class="card-header bg-custom-purple text-white"><i class="fa-solid fa-brain"></i><b> ${interaction.type}</b></div>
                         <div class="card-body">
                             ${table}
-                            <p class="card-text">${interaction.content}</p>
+                            <p class="card-text">${marked.parse(interaction.content)}</p>
                         </div>
                     </div>`
         return card;

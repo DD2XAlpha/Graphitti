@@ -8,8 +8,10 @@
     }
 </style>
 
+
 <div class="row" id="graphitti-start">
     <div class="d-flex flex-column justify-content-center align-items-center" style="min-height: 80vh;">
+        <img src="{{ url_for('static', filename='img/icon_2.svg') }}" alt="Graphitti Logo" style="width: 200px;">
         <h1>Graphitti</h1>
         <p>To start open a python file with your graph</p>
     </div>
@@ -22,24 +24,26 @@
             <!--Here the graph will be rendered-->
         </div>
 
+        <div style="position: absolute; bottom: 0; width:100%" id="input-zone" class="frosted">
+            <div class="text-end me-5">
+                <!-- <button class="btn btn-light" type="button" id="btn-invoke"><i class="fa-regular fa-circle-play"></i> Add input</button> -->
+                <button class="btn btn-outline-primary" type="button" id="btn-invoke">
+                    <i class="fa-regular fa-circle-play"></i> Execute Graph
+                </button>
+            </div>
 
-
-        <!-- Any other content within the parent div -->
-
-        <div style="position: absolute; bottom: 0; width:100%" id="input-zone">
-            <div class="input-group mt-3 p-5">
+            <div class="ms-5 me-5 mb-3 mt-2">
                 <input type="text" class="form-control" id="txt-message" placeholder="Enter a message">
-                <button class="btn btn-outline-secondary" type="button" id="btn-invoke">Send</button>
             </div>
         </div>
 
     </div>
-    <div class="col-md-4" id="graph-execution" style="overflow-y: auto;">
-        <h5><b>Thread</b></h5>
+    <div class="col-md-4 p-3" id="graph-execution" style="overflow-y: auto;">
+        <h5><i class="fa-solid fa-code-branch"></i> <b>Thread</b></h5>
     </div>
 
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
 <script src="{{ url_for('static', filename='js/mermaid.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/graphitti.js') }}"></script>
@@ -63,7 +67,7 @@
         $("#graph-viewer").css("min-height", graph_viewer_height);
         $("#graph-execution").css("max-height", graph_viewer_height);
         $(`#graphContainer svg`).css('max-width', 'none').css('max-height', graph_viewer_height - input_div_size);
-                $("#input-zone").css("max-width", $("#graph-viewer").width());
+        $("#input-zone").css("max-width", $("#graph-viewer").width());
     });
 </script>
 {% endblock %}
