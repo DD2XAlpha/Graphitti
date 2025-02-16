@@ -23,7 +23,7 @@ class Graphitti {
             data: JSON.stringify({ path: path }),
             success: (data) => {
                 this.draw_graph('graphContainer', data);
-                //this.invoke_graph(path); //remove
+                this.new_thread_id();
             },
             error: (jqXHR, textStatus, errorThrown) => {
                 console.error('Error fetching graph:', textStatus, errorThrown);
@@ -42,19 +42,21 @@ class Graphitti {
         });
     }
 
-    invoke_graph(path, prompt) {
+    invoke_graph(path, prompt, thread_id) {
         $.ajax({
             url: '/invoke',
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify({ message: prompt, path: path }),
+            data: JSON.stringify({ message: prompt, path: path, thread_id: thread_id }),
             success: (response) => {
                 let data = JSON.parse(response);
                 console.log(data); ``
-
+                $("#graph-execution").html('');
                 for (var i = 0; i < data.length; i++) {
                     $("#graph-execution").append(new GraphittiComponent().render_interaction(data[i]));
+                    $("#graph-execution").animate({ scrollTop: $("#graph-execution")[0].scrollHeight }, 1000);
                 }
+                $("#txt-thread-json").val(response);
             },
             error: (jqXHR, textStatus, errorThrown) => {
                 console.error('Error invoking graph:', textStatus, errorThrown);
@@ -115,6 +117,21 @@ class Graphitti {
         // Clean up
         document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
+    }
+
+    new_thread_id(){
+        $.ajax({
+            url: `/new-thread-id`,
+            type: 'GET',
+            success: (data) => {
+                console.log(data);
+                $("#thread-id").html(data.thread_id);
+                $("#graph-execution").html('');
+            },
+            error: (jqXHR, textStatus, errorThrown) => {
+                console.error('Error fetching graph:', textStatus, errorThrown);
+            }
+        });
     }
 
 }

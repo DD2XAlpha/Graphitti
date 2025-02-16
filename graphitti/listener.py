@@ -1,5 +1,5 @@
 from langgraph.graph.state import CompiledStateGraph
-
+from langgraph.graph import StateGraph
 
 
 def get_vars_and_exec(script_path: str) -> dict:
@@ -11,7 +11,7 @@ def get_vars_and_exec(script_path: str) -> dict:
 def lookup_for_state_graph(script_path: str):
     vars = get_vars_and_exec(script_path)
     for var_name, value in vars.items():
-        if isinstance(value, CompiledStateGraph):
+        if isinstance(value, StateGraph):
             print(f"Found state graph: {var_name}")
             return value
 
