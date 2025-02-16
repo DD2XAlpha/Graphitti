@@ -23,6 +23,11 @@ This application aims to run all locally and be able to see all the interactions
 
 ### DD2XAlpha note blog
 
+##### Feb 15th, 2025
+---
+Current navbar functionality is complete, all options of the navbar now works!! I am feeling proud 😊
+
+
 ##### Feb 12th, 2025
 ---
 Ok, I was so desperate to add modify the UI, when I was running tests I couldn't bare my own creation 😂, so I have added:

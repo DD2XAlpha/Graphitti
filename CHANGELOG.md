@@ -1,3 +1,10 @@
+# Graphitti v0.0.3
+- Added functionallity to create new threads
+- Copy Thread ID
+- Copy Thread Interaction
+- Download Thread Interaction
+- About page
+
 # Graphitti v0.0.2a
 - Added marked.js
 - Added fontawesome
