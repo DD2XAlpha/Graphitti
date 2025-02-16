@@ -1,5 +1,7 @@
 {% extends "_layout.html" %}
 
+{% block title %}Home{% endblock %}
+
 {% block content %}
 
 <style>
@@ -8,6 +10,7 @@
     }
 </style>
 
+<textarea hidden id="txt-thread-json"></textarea>
 
 <div class="row" id="graphitti-start">
     <div class="d-flex flex-column justify-content-center align-items-center" style="min-height: 80vh;">
@@ -38,8 +41,11 @@
         </div>
 
     </div>
-    <div class="col-md-4 p-3" id="graph-execution" style="overflow-y: auto;">
-        <h5><i class="fa-solid fa-code-branch"></i> <b>Thread</b></h5>
+    <div class="col-md-4 p-3" style="overflow-y: auto;" id="div-thread">
+        <h5><i class="fa-solid fa-code-branch"></i> <b>Thread:</b> <small id="thread-id" data-id=""></small></h5>
+        <div id="graph-execution">
+            <!--Here the graph execution will be rendered-->
+            </div>
     </div>
 
 </div>
@@ -47,6 +53,8 @@
 <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
 <script src="{{ url_for('static', filename='js/mermaid.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/graphitti.js') }}"></script>
+<script src="{{ url_for('static', filename='js/copier.js') }}"></script>
+<script src="{{ url_for('static', filename='js/json-downloader.js') }}"></script>
 <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 
 <script>
@@ -55,7 +63,7 @@
         input_div_size = $("#input-zone").outerHeight(),
         graph_viewer_height = window_height - nav_height - input_div_size;
     $("#graph-viewer").css("min-height", graph_viewer_height);
-    $("#graph-execution").css("max-height", graph_viewer_height);
+    $("#div-thread").css("max-height", graph_viewer_height);
     let graph_viewer_width = $("#graph-viewer").width();
     $("#input-zone").css("max-width", graph_viewer_width);
 
@@ -65,7 +73,7 @@
             input_div_size = $("#input-zone").outerHeight(),
             graph_viewer_height = window_height - nav_height;
         $("#graph-viewer").css("min-height", graph_viewer_height);
-        $("#graph-execution").css("max-height", graph_viewer_height);
+        $("#div-thread").css("max-height", graph_viewer_height);
         $(`#graphContainer svg`).css('max-width', 'none').css('max-height', graph_viewer_height - input_div_size);
         $("#input-zone").css("max-width", $("#graph-viewer").width());
     });

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify,send_file
-from graphitti.graph import get_mermaid_graph, get_mermaid_graph_image, async_invoke_state_graph, invoke_state_graph
+from graphitti.graph import get_mermaid_graph, get_mermaid_graph_image, async_invoke_state_graph, invoke_state_graph, new_thread_id
 from graphitti.json_parser import parse_message
 from graphitti.filedialog import open_file, open_folder
 from dotenv import load_dotenv
@@ -12,6 +12,10 @@ load_dotenv()
 @app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template("index.html")
+
+@app.route('/about')
+def about():
+    return render_template("about.html")
 
 @app.route('/open-file')
 def open_file_route():
@@ -31,9 +35,10 @@ def mermaid():
 def invoke():
     data = request.get_json()
     message = data.get('message')
-    print("Message", message)
+    thread_id = data.get('thread_id')
+    print(thread_id)
     path = data.get('path')
-    response = invoke_state_graph(path, message)
+    response = invoke_state_graph(path, message, thread_id)
     parsed_response = parse_message(response["messages"])
     return jsonify(parsed_response)
 
@@ -56,6 +61,9 @@ def image_download():
     img = get_mermaid_graph_image(path)
     return send_file(BytesIO(img), mimetype='image/png', as_attachment=True, download_name='graph.png')
 
+@app.route('/new-thread-id', methods=['GET'])
+def new_thread():
+    return jsonify({"thread_id": new_thread_id()})
 
 if __name__ == '__main__':
     app.run(debug=True)

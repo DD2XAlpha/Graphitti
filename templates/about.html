@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}About{% endblock %}</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="{{ url_for('static', filename='css/custom-boot.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/font.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/frost.css') }}" rel="stylesheet">
+    <style>
+        body {
+            overflow-x: hidden;
+            /* Hide horizontal scrollbar */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary-subtle">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="{{ url_for('static', filename='img/icon_2.svg') }}"
+                    alt="Graphitti Logo" style="width: 20px;"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/"><i class="fa-solid fa-arrow-left"></i> Return</a>
+                    </li> 
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="m-3">
+        <h1>Graphitti</h1>
+        <h5><b>&copy; DD2XAlpha (Josué Alanís)</b></h5>
+
+        <p>
+            Graphitti is an open source application developed by DD2XAlpha, released under an Apache 2.0 License
+        </p>
+        <p>
+            This software is free to use, for commercial and personal use.
+        </p>
+        <p>
+            Learn more at my <a href="https://github.com/DD2XAlpha/Graphitti">Github repo</a>
+        </p>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
